@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 125b043a74c926b4a9a91a1897bd555c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 125b043a74c926b4a9a91a1897bd555c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -124,6 +124,7 @@ MonoBehaviour:
   bulletSpeed: 5
   cannonAudio: {fileID: 0}
   fireClip: {fileID: 8300000, guid: 8eec614a2db6a0f44b39204f8c448af2, type: 3}
+  muzzleFlash: {fileID: 6145178379484639279, guid: 9fed1f4286781e04c9acef7f697ea105, type: 3}
 --- !u!82 &9132121240629885756
 AudioSource:
   m_ObjectHideFlags: 0
@@ -136,7 +137,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -260,23 +261,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3499787104358566228, guid: b9faee0594e17454396b4c5d5f8ecf4b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3499787104358566228, guid: b9faee0594e17454396b4c5d5f8ecf4b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3499787104358566228, guid: b9faee0594e17454396b4c5d5f8ecf4b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3499787104358566228, guid: b9faee0594e17454396b4c5d5f8ecf4b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3499787104358566228, guid: b9faee0594e17454396b4c5d5f8ecf4b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3499787104358566228, guid: b9faee0594e17454396b4c5d5f8ecf4b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

@@ -1,29 +1,91 @@
+using System;
 using UnityEngine;
 
-public class enemy : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     RaycastHit hit;
-    float MaxDistance = 30;
-    public GameObject player; // 플레이어 오브젝트를 참조
+    float MaxDistance = 30f; // 레이 범위
+    private Vector3 playerLastPosition; // 플레이어의 이전 위치 저장
+    public GameObject player; // 플레이어 오브젝트
+    public float moveDistance = 2f; // 적 이동 거리
+    public float movementThreshold = 0.1f; // 플레이어 이동 감지 임계치
+    private bool playerInSight = false; // 플레이어가 레이 범위 안에 있는지 여부
+    private Vector3 targetPosition; // 적이 이동할 목표 위치
+    public float speed = 5f; // 적 이동 속도 (초당 이동할 거리)
 
-    // Update is called once per frame
-    [System.Obsolete]
+    Animator animator;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        // 플레이어의 초기 위치 저장
+        playerLastPosition = player.transform.position;
+        // 플레이어 이동 완료 이벤트 구독
+        PlayerMove.OnPlayerMoveComplete += MoveEnemyOnPlayerMove;
+
+        // 적의 초기 목표 위치 설정 (현재 위치)
+        targetPosition = transform.position;
+    }
+
+    void OnDestroy()
+    {
+        // 이벤트 구독 해제
+        PlayerMove.OnPlayerMoveComplete -= MoveEnemyOnPlayerMove;
+    }
+
+    private void MoveEnemyOnPlayerMove()
+    {
+        // 플레이어가 레이 범위 안에 있을 때만 적이 이동
+        if (playerInSight)
+        {
+            animator.SetBool("IsRun", true);
+            // 이동할 목표 위치 설정 (현재 위치에서 X축으로 정확히 2만큼 이동)
+            targetPosition = transform.position + Vector3.right * moveDistance;
+        }
+    }
+
     void Update()
     {
+        // 적의 레이를 시각화
         Debug.DrawRay(transform.position, transform.forward * MaxDistance, Color.blue, 0.3f);
+
+        // 레이캐스트로 플레이어를 감지
         if (Physics.Raycast(transform.position, transform.forward, out hit, MaxDistance))
         {
-            Debug.Log("DDD");
-            // 플레이어가 이동 중인지 확인
-            if (player.GetComponent<Rigidbody>().velocity.magnitude > 0)
+            if (hit.collider.gameObject == player)
             {
-                // 플레이어가 이동 중이면 y축으로 +2 이동
-                Vector3 newPosition = player.transform.position;
-                newPosition.z += 2;
-                player.transform.position = newPosition;
+                // 플레이어가 레이 범위 안에 있음
+                playerInSight = true;
 
-                Debug.Log("Player moved up by 2 units!");
+                // 플레이어가 일정 거리 이상으로 움직였을 때만 적이 이동
+                Vector3 playerCurrentPosition = player.transform.position;
+                if (Vector3.Distance(playerCurrentPosition, playerLastPosition) > movementThreshold)
+                {
+                    Debug.Log("Player is moving in range!");
+                    // 이동 완료 시 플레이어의 위치 업데이트
+                    playerLastPosition = playerCurrentPosition;
+                }
             }
+            else
+            {
+                playerInSight = false; // 플레이어가 레이 범위를 벗어남
+            }
+        }
+        else
+        {
+            playerInSight = false; // 레이 범위 내에 아무것도 감지되지 않음
+        }
+
+        // 적이 목표 위치에 도달할 때까지 부드럽게 이동 (이동 속도 반영)
+        if (playerInSight && transform.position != targetPosition)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        }
+
+        // 적이 목표 위치에 도달하면 애니메이션 종료
+        if (transform.position == targetPosition)
+        {
+            animator.SetBool("IsRun", false);
         }
     }
 }

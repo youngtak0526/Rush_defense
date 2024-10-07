@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 7330528314105401919}
   - component: {fileID: 5275728076770167595}
   - component: {fileID: 442262221802560867}
+  - component: {fileID: 5540417944228617736}
   m_Layer: 0
   m_Name: character 1
   m_TagString: Untagged
@@ -576,6 +577,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 2405528726375884831}
   maxHealth: 100
+--- !u!114 &5540417944228617736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2405528726375884831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb8110bf335cd0841b5134d2a74e5af7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathImages: []
+  deathCanvas: {fileID: 0}
+  fadeDuration: 0.5
+  respawnDelay: 3
 --- !u!1 &3548665818162189694
 GameObject:
   m_ObjectHideFlags: 0

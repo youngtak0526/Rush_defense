@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using UnityEngine;
+using System; // 이벤트 사용을 위해 추가
 
 public class PlayerMove : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class PlayerMove : MonoBehaviour
     private Vector3 targetPosition; // 이동할 목표 위치
     private Vector3 originalPosition; // 이동 전 원래 위치
     private bool isMoving = false; // 캐릭터가 이동 중인지 여부
-    //private bool isDeath = false;
+                                   //private bool isDeath = false;
+
+    public static event Action OnPlayerMoveComplete; // 플레이어 이동 완료 이벤트
 
     public static PlayerMove Instance { get; private set; } // 싱글톤 인스턴스
 
@@ -78,7 +81,10 @@ public class PlayerMove : MonoBehaviour
                 {
                     transform.position = targetPosition;
                     isMoving = false; // 이동 완료
-                    
+
+                    // 이동 완료 시 이벤트 발생
+                    OnPlayerMoveComplete?.Invoke();
+
                 }
             }
         }
