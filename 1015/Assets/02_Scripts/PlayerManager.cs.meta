@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 1ded95ae893a7ab4283cb18865fb04ce
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - playerPrefab: {fileID: 3599852847949434805, guid: 2eb3b2fb474a7754e9c6a59ff8b69f54, type: 3}
+  - deathCanvas: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
